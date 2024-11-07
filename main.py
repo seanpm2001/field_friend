@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+from dataclasses import asdict
 
 from dotenv import load_dotenv
 from nicegui import app, ui
@@ -43,6 +44,10 @@ def startup() -> None:
     @app.get('/status')  # /status
     def status():
         return {'status': 'ok'}
+
+    @app.get('/gnss')
+    def gnss():
+        return asdict(system.gnss.current) if system.gnss.current else {}
 
     logging_page(['field_friend', 'rosys'])  # /logging
     videos_page()  # /videos
